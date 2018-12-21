@@ -15,7 +15,7 @@ def main(argv):
 			skip_menu = True
     
 
-	projectsListFile = "/Users/amiteinav/Downloads/projects.txt"
+	projectsListFile = "projects.txt"
 
 	print ("\ndata file is " + projectsListFile + "\n")
 
