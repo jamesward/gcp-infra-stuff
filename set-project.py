@@ -5,17 +5,23 @@ import os, sys, getopt
 def main(argv):
 	skip_menu = False
 
+	projectsListFile = "/Users/amiteinav/Downloads/projects.txt"
+
+
 	try:
-		opts, args = getopt.getopt(argv,"p:")
+		opts, args = getopt.getopt(argv,"p:f")
 	except getopt.GetoptError:
 		sys.exit(42)
 	for opt, arg in opts:
 		if opt == '-p':
 			choice = int(arg)
 			skip_menu = True
+		elif opt == '-f':
+			print ("\ndata file is " + projectsListFile + "\n")
+			exit()
+
     
 
-	projectsListFile = "projects.txt"
 
 	print ("\ndata file is " + projectsListFile + "\n")
 
