@@ -12,5 +12,5 @@ targetting a 35M rows and getting a specific line took 15560.325 ms with this co
 print linecache.getline(filename, line_no)
 ```
 
-the file **create_lines.bash** is a super bash script that i used to create non-random lines
+the file **create_lines.bash** is a super-simple bash script that i used to create non-random lines
 
