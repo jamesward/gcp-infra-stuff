@@ -1,5 +1,22 @@
 # gcp-infra-stuff
 
+## Pre-requisite for running the scripts ##
+
+```
+sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install git -y 
+pip install --user --upgrade google-api-python-client 
+
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+sudo python get-pip.py
+
+```
+
+## getting the goodies ##
+
+* get the files using this command:
+```
+git clone https://github.com/amiteinav/image-processing.git
+```
 
 ## Counting lines in python - count_lines.py
 
