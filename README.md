@@ -19,7 +19,7 @@ git clone https://github.com/amiteinav/image-processing.git
 ```
 
 ## Making sure to have enough preemptible VMs on your Managed Instance Group
-Google Cloud's Preemptible VMs[!https://cloud.google.com/preemptible-vms] are awesome - if you have a stateless workload, you should definitely try these out.  
+Google Cloud's [Preemptible VMs](https://cloud.google.com/preemptible-vms) are awesome - if you have a stateless workload, you should definitely try these out.  
 
 ## Counting lines in python - count_lines.py
 
