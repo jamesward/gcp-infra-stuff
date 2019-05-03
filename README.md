@@ -25,7 +25,7 @@ git clone https://github.com/amiteinav/image-processing.git
 Google Cloud's [Preemptible VMs](https://cloud.google.com/preemptible-vms) are awesome - if you have a stateless workload, you should definitely try these out.  
 
 
-There are two scripts to use - *pvm/calc_ig.py* and *monitor_ig.bash* 
+There are two scripts to use - **pvm/calc_ig.py** and **pvm/monitor_ig.bash** 
 
 
 The logic is to check every 60 seconds if a managed instances group of Preemptible VMs is as big as it should be and enlarging it based on the ratio of the lacking.
