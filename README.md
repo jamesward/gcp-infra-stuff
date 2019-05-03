@@ -1,6 +1,10 @@
 # gcp-infra-stuff
 
-## Pre-requisite for running the scripts ##
+## Getting the Goodies ##
+
+### Pre-requisite for running the scripts ###
+
+* install few updates and stuff..
 
 ```
 sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install git -y 
@@ -10,16 +14,27 @@ curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 sudo python get-pip.py
 
 ```
-
-## getting the goodies ##
-
 * get the files using this command:
 ```
 git clone https://github.com/amiteinav/image-processing.git
 ```
 
-## Making sure to have enough preemptible VMs on your Managed Instance Group
+## Preemptible VMs ##
+
+### Making sure to have enough preemptible VMs on your Managed Instance Group ###
 Google Cloud's [Preemptible VMs](https://cloud.google.com/preemptible-vms) are awesome - if you have a stateless workload, you should definitely try these out.  
+
+
+There are two scripts to use - *pvm/calc_ig.py* and *monitor_ig.bash* 
+
+
+The logic is to check every 60 seconds if a managed instances group of Preemptible VMs is as big as it should be and enlarging it based on the ratio of the lacking.
+
+Once the group is too big, it is bringing it back to the regular size. So if you have 60 pre-emptible VMs out of 90 pre-emptible, the script will add 45 more (1/(60/90)x90).
+
+
+In GCP we implement that using a startup script on a small server that runs in an instance group in three separate regions that should suffice for 100% availability 
+
 
 ## Counting lines in python - count_lines.py
 
