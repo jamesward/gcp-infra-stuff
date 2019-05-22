@@ -19,3 +19,10 @@ gcloud services enable --project $PROJECT logging.googleapis.com &
 gcloud services enable --project $PROJECT monitoring.googleapis.com &
 gcloud services enable --project $PROJECT spanner.googleapis.com &
 gcloud services enable --project $PROJECT datafusion.googleapis.com &
+gcloud services enable --project $PROJECT container.googleapis.com  &                                              
+gcloud services enable --project $PROJECT containeranalysis.googleapis.com    &                                   
+gcloud services enable --project $PROJECT containerregistry.googleapis.com     &                                   
+gcloud services enable --project $PROJECT containerscanning.googleapis.com                                        
+gcloud services enable --project $PROJECT nonprod-cloudbuild.sandbox.googleapis.com &                              
+gcloud services enable --project $PROJECT proxy-cloudbuild.sandbox.googleapis.com    &                             
+
