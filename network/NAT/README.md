@@ -95,22 +95,8 @@ gcloud compute routers nats create nat-config \
     --enable-logging
 ```
 
+## Verify access to public IP addresses of Google APIs and services and other connections to the internet.
 * Now this command will work for the priave-ip VM
 ```
 sudo apt-get update
-```
-
-
-
-## Verify access to public IP addresses of Google APIs and services and other connections to the internet.
-## Log NAT connections with Cloud NAT logging.
-
-```
-export PROJECT_ID=`gcloud config get-value project`
-VPC_NAME=privatenet
-
-gcloud compute --project=$PROJECT_ID networks create privatenet --subnet-mode=custom
-
-gcloud beta compute --project=amiteinav-sandbox networks subnets create privatenet-us --network=privatenet --region=us-central1 --range=10.130.0.0/20 --enable-flow-logs
-
 ```
