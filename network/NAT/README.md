@@ -73,9 +73,34 @@ gcloud compute networks subnets update  privatenet-us \
 gcloud compute networks subnets describe  privatenet-us --region us-central1 --format="get(privateIpGoogleAccess)"
 ```
 
-* now, the private-ip VM can access APIs and services by google (complete list is https://cloud.google.com/vpc/docs/private-access-options#pga-supported) 
+* now, the private-ip VM can access APIs and services by google (https://cloud.google.com/vpc/docs/private-access-options#pga-supported) 
 
-## Configure a Cloud NAT gateway.
+## Configure a Cloud NAT gateway
+* try running the following on each server (privatevm and the bastion) - it will succeed only on the bastion. the private-vm will succeed only for the google part
+```
+sudo apt-get update
+``` 
+
+* create a cloud router for the NAT service
+```
+gcloud compute routers create nat-router --network privatenet --region us-central1
+```
+
+* Configure the NAT service
+```
+gcloud compute routers nats create nat-config \
+    --router=nat-router \
+    --auto-allocate-nat-external-ips \
+    --nat-all-subnet-ip-ranges \
+    --enable-logging
+```
+
+* Now this command will work for the priave-ip VM
+```
+sudo apt-get update
+```
+
+
 
 ## Verify access to public IP addresses of Google APIs and services and other connections to the internet.
 ## Log NAT connections with Cloud NAT logging.
