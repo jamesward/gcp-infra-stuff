@@ -1,4 +1,4 @@
-# NAT NAT NAT
+# NAT On Google Cloud Platform
 This page covers two HOWTOs
 1. [NAT on GKE](https://github.com/amiteinav/gcp-infra-stuff/blob/master/network/NAT/README.md#1-nat-on-a-gke)
 2. [NAT on GCE](https://github.com/amiteinav/gcp-infra-stuff/blob/master/network/NAT/README.md#2-nat-on-a-gce)
