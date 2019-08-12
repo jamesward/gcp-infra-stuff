@@ -12,15 +12,28 @@ export PROJECT_ID=`gcloud config get-value project`
 
 gcloud compute --project=$PROJECT_ID networks create gkeprivatenet --subnet-mode=custom
 
-gcloud beta compute --project=${PROJECT_ID} networks subnets create gkeprivatenet-us --network=gkeprivatenet --region=us-central1 --range=192.168.1.0/24 --enable-flow-logs
+gcloud beta compute --project=${PROJECT_ID} networks subnets create gkeprivatenet-us \
+--network=gkeprivatenet --region=us-central1 --range=192.168.1.0/24 --enable-flow-logs
 ```
 * Create a bastion host
 ```
-gcloud beta compute --project=$PROJECT_ID instances create gke-vm-bastion --zone=us-central1-c --machine-type=g1-small --subnet=gkeprivatenet-us  --maintenance-policy=MIGRATE --scopes=https://www.googleapis.com/auth/compute,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/trace.append,https://www.googleapis.com/auth/devstorage.read_only  --boot-disk-size=10GB --boot-disk-type=pd-standard --boot-disk-device-name=gke-vm-bastion    --image-family debian-9  --image-project debian-cloud 
+gcloud beta compute --project=$PROJECT_ID instances create gke-vm-bastion \
+--zone=us-central1-c \
+--machine-type=g1-small \
+--subnet=gkeprivatenet-us \
+--image-family debian-9  \
+--image-project debian-cloud 
 ```
 * Create a FW for SSH
 ```
-gcloud beta compute --project=$PROJECT_ID firewall-rules create gkeprivatenet-allow-ssh --direction=INGRESS --priority=900 --network=gkeprivatenet --action=ALLOW --rules=tcp:22 --source-ranges=0.0.0.0/0 --enable-logging
+gcloud beta compute --project=$PROJECT_ID firewall-rules create gkeprivatenet-allow-ssh \
+--direction=INGRESS \
+--priority=900 \
+--network=gkeprivatenet \
+--action=ALLOW \
+--rules=tcp:22 \
+--source-ranges=0.0.0.0/0 \
+--enable-logging
 ```
 * Create a private GKE cluster
 ```
@@ -32,7 +45,10 @@ gcloud container --project ${PROJECT_ID} clusters create "nat-test-cluster" \
     --image-type "COS" \
     --disk-type "pd-standard" \
     --disk-size "100" \
-    --scopes "https://www.googleapis.com/auth/compute","https://www.googleapis.com/auth/devstorage.read_only","https://www.googleapis.com/auth/logging.write","https://www.googleapis.com/auth/monitoring","https://www.googleapis.com/auth/servicecontrol","https://www.googleapis.com/auth/service.management.readonly","https://www.googleapis.com/auth/trace.append" \
+    --scopes "https://www.googleapis.com/auth/compute","https://www.googleapis.com/auth/devstorage.read_only",\
+    "https://www.googleapis.com/auth/logging.write","https://www.googleapis.com/auth/monitoring",\
+    "https://www.googleapis.com/auth/servicecontrol","https://www.googleapis.com/auth/service.management.readonly"\
+    ,"https://www.googleapis.com/auth/trace.append" \
     --num-nodes "2" \
     --enable-cloud-logging \
     --enable-cloud-monitoring \
@@ -115,20 +131,37 @@ export PROJECT_ID=`gcloud config get-value project`
 
 gcloud compute --project=$PROJECT_ID networks create privatenet --subnet-mode=custom
 
-gcloud beta compute --project=amiteinav-sandbox networks subnets create privatenet-us --network=privatenet --region=us-central1 --range=10.130.0.0/20 --enable-flow-logs
+gcloud beta compute --project=amiteinav-sandbox networks subnets create privatenet-us \
+--network=privatenet --region=us-central1 --range=10.130.0.0/20 --enable-flow-logs
 
 ```
 * Create a FW for SSH
 ```
-gcloud beta compute --project=$PROJECT_ID firewall-rules create privatenet-allow-ssh --direction=INGRESS --priority=900 --network=privatenet --action=ALLOW --rules=tcp:22 --source-ranges=0.0.0.0/0 --enable-logging
+gcloud beta compute --project=$PROJECT_ID firewall-rules create privatenet-allow-ssh 
+--direction=INGRESS \
+--priority=900 \
+--network=gkeprivatenet \
+--action=ALLOW \
+--rules=tcp:22 \
+--source-ranges=0.0.0.0/0 \
+--enable-logging
 ```
 * Create a VM
 ```
-gcloud beta compute --project=$PROJECT_ID instances create vm-internal --zone=us-central1-c --machine-type=n1-standard-1 --subnet=privatenet-us --no-address --maintenance-policy=MIGRATE --boot-disk-size=10GB --boot-disk-type=pd-standard --boot-disk-device-name=vm-internal 
+gcloud beta compute --project=$PROJECT_ID instances create vm-internal \
+--zone=us-central1-c \
+--machine-type=n1-standard-1 \
+--subnet=privatenet-us \
+--no-address  
 ``` 
 ### Create a bastion host and use it to connect to a private-ip VM
 ```
-gcloud beta compute --project=$PROJECT_ID instances create vm-bastion --zone=us-central1-c --machine-type=g1-small --subnet=privatenet-us  --maintenance-policy=MIGRATE --scopes=https://www.googleapis.com/auth/compute,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/trace.append,https://www.googleapis.com/auth/devstorage.read_only  --boot-disk-size=10GB --boot-disk-type=pd-standard --boot-disk-device-name=vm-bastion 
+gcloud beta compute --project=$PROJECT_ID instances create vm-bastion \
+--zone=us-central1-c \
+--machine-type=g1-small \
+--subnet=privatenet-us \
+--image-family debian-9  \
+--image-project debian-cloud 
 ```
 * Add a compute Engine SSH key to your local host
 ```
@@ -170,7 +203,8 @@ gcloud compute networks subnets update  privatenet-us \
 ```
 * Verify that it is privateIpGoogleAccess is true
 ```
-gcloud compute networks subnets describe  privatenet-us --region us-central1 --format="get(privateIpGoogleAccess)"
+gcloud compute networks subnets describe privatenet-us \
+--region us-central1 --format="get(privateIpGoogleAccess)"
 ```
 * Now, the private-ip VM can access APIs and services by google (https://cloud.google.com/vpc/docs/private-access-options#pga-supported) 
 
@@ -193,7 +227,7 @@ gcloud compute routers nats create nat-config \
 ```
 
 ### Verify access to public IP addresses of Google APIs and services and other connections to the internet.
-* Now this command will work for the priave-ip VM
+* Now this command will work for the private-ip VM
 ```
 sudo apt-get update
 ```
