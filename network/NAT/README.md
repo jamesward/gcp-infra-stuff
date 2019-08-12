@@ -1,9 +1,8 @@
 # NAT NAT NAT
 This page covers two HOWTOs
-1. NAT on GKE [aaa](#-1.-NAT-on-a-GKE)
-2. NAT on GCE
+1. [NAT on GKE](#-1.-NAT-on-a-GKE)
+2. [NAT on GCE](#-2.-NAT-on-a-GCE)
   
-
 # 1. NAT on a GKE
 
 ## What are we going to do?
@@ -122,7 +121,7 @@ gcloud compute routers nats create gke-nat-config \
 curl www.example.com
 ```
 
-# 2. NAT on Regular VM
+# 2. NAT on a GCE
 
 ## What are we going to do?
 
