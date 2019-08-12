@@ -1,4 +1,10 @@
-# NAT on a GKE
+# NAT NAT NAT
+This page covers two HOWTOs
+1. NAT on GKE
+2. NAT on GCE
+  
+
+# 1. NAT on a GKE
 
 ## What are we going to do?
 Configure a Cloud NAT with Google Kubernetes Engine. 
@@ -116,7 +122,7 @@ gcloud compute routers nats create gke-nat-config \
 curl www.example.com
 ```
 
-# NAT on Regular VM
+# 2. NAT on Regular VM
 
 ## What are we going to do?
 
@@ -133,7 +139,6 @@ gcloud compute --project=$PROJECT_ID networks create privatenet --subnet-mode=cu
 
 gcloud beta compute --project=amiteinav-sandbox networks subnets create privatenet-us \
 --network=privatenet --region=us-central1 --range=10.130.0.0/20 --enable-flow-logs
-
 ```
 * Create a FW for SSH
 ```
