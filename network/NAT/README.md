@@ -1,7 +1,7 @@
 # NAT NAT NAT
 This page covers two HOWTOs
-1. [NAT on GKE](#-1.-NAT-on-a-GKE)
-2. [NAT on GCE](#-2.-NAT-on-a-GCE)
+1. [NAT on GKE](#1.-NAT-on-a-GKE)
+2. [NAT on GCE](#2.-NAT-on-a-GCE)
   
 # 1. NAT on a GKE
 
