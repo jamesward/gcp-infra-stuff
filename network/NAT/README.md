@@ -3,7 +3,7 @@
 ## What are we going to do?
 Configure a Cloud NAT with Google Kubernetes Engine. 
 
-## Create a Private Cluster
+### Create a Private Cluster
 * Create a private VPC
 ```
 export PROJECT_ID=`gcloud config get-value project`
