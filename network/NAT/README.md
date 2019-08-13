@@ -227,7 +227,8 @@ gcloud compute routers nats create nat-config \
     --router=nat-router \
     --auto-allocate-nat-external-ips \
     --nat-all-subnet-ip-ranges \
-    --enable-logging
+    --enable-logging \
+    --region=us-central1
 ```
 
 ### Verify access to public IP addresses of Google APIs and services and other connections to the internet.
