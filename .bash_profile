@@ -16,5 +16,3 @@ export MYIP=`curl http://ip4.me/ -s | grep Monospace | awk -F"3>" '{print $2}' |
 export PATH=/var/root/Library/Python/2.7/bin:$PATH:/Users/amiteinav/Library/Python/2.7/bin:/Users/amiteinav/istio-0.5.1/bin:/Users/amiteinav/Documents/GitHub
 
 export GIT=/Users/amiteinav/Documents/GitHub
-
-#gcloud config configurations activate default
