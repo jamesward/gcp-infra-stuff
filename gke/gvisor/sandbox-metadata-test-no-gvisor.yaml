@@ -1,0 +1,22 @@
+# sandbox-metadata-test.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fedora
+  labels:
+    app: fedora
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fedora
+  template:
+    metadata:
+      labels:
+        app: fedora
+    spec:
+      containers:
+      - name: fedora
+        image: fedora
+        command: ["/bin/sleep","10000"]
+
