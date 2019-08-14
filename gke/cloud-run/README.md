@@ -1,7 +1,7 @@
 # Cloud Run
 
 ## There are actually two kinds
-1. CCloud Run as a Managed Service - as a Managed service
+1. Cloud Run as a Managed Service - as a Managed service
 2. Cloud Run on your own GKE cluster
 
 ## Preperation for the Demo
@@ -12,7 +12,7 @@ sudo apt-get install git
 git clone https://github.com/amiteinav/gcp-infra-stuff.git
 ```
 
-## Cloud Run as a Managed Service
+## 1. Cloud Run as a Managed Service
 * Let's build an app - the docx-to-pdf service
 ```
 cd gsp-infra-stuff/gke/cloud-run/pdf
@@ -42,6 +42,7 @@ kubectl apply --filename https://storage.googleapis.com/tekton-releases/latest/r
 ```
 kubectl get pods --namespace tekton-pipelines
 ```
+* You can install the Tekton CLI - https://github.com/tektoncd/cli/releases/
 
 ### Building an image (Using Tekton) and pushing to Google Contrainer Registry
 * This task has one step that uses the kaniko project to build a docker image from source and push it to a registry.
@@ -62,5 +63,48 @@ gcloud beta run deploy pdf-tekton-svc \
 ```
 gcloud beta run routes describe pdf-tekton-svc --platform=managed --region us-central1
 ```
+
+## 2. Cloud Run on your own GKE cluster
+* Create a cluster
+```
+export PROJECT_ID=`gcloud config get-value project`
+
+gcloud beta container clusters create cloud-run-gke \
+--addons=HorizontalPodAutoscaling,HttpLoadBalancing,Istio,CloudRun \
+--machine-type=n1-standard-2 \
+--cluster-version=latest --zone=us-central1-b \
+--enable-stackdriver-kubernetes \
+--scopes cloud-platform
+
+```
+* to use a manged service, use the gcloud to deploy 
+```
+gcloud config set run/cluster_location us-central1-b
+
+gcloud beta run deploy pdf-tekton-svc-gke \
+--platform=gke \
+--image gcr.io/`gcloud config get-value project`/pdf-tekton  \
+--cluster cloud-run-gke   --cluster-location us-central1-b \
+--connectivity=external 
+```
+
+## Changing GKE default domain to one usable for testing 
+* By default, Cloud Run on GKE uses example.com as the base domain, where the fully qualified domain name for a service is formatted as http://{route}.{namespace}.example.com. This default domain doesn't work "out of the box" as a URL you can send requests to.
+* you can go to this URL if the below doesn't work for you https://cloud.google.com/run/docs/gke/default-domain
+* The instructions show the use of free DNS wildcard sites so you don't have to purchase a custom domain for testing. 
+* When you are developing and testing, you change the default domain to use one of the free wildcard DNS test sites - such as
+- nip.io
+- xip.io
+- sslip.io
+* Get the external IP address
+```
+kubectl get service istio-ingressgateway --namespace istio-system
+```
+```
+export EXTERNAL_IP
+kubectl patch configmap config-domain --namespace knative-serving --patch \
+  '{"data": {"example.com": null, "${EXTERNAL_IP}.xip.io": ""}}'
+```
+
 
 
