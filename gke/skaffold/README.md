@@ -33,7 +33,7 @@ Code change -> run docker build -> run docker push -> patch yaml ->  kubectl app
 
 * Change directory to skaffold-example
 ```
-cd skaffold-example
+cd gke/skaffold/skaffold-example
 ```
 
 ## The development Loop
