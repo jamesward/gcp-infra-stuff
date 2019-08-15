@@ -101,10 +101,16 @@ gcloud beta run deploy pdf-tekton-svc-gke \
 kubectl get service istio-ingressgateway --namespace istio-system
 ```
 ```
-export EXTERNAL_IP
+export EXTERNAL_IP=`kubectl get service istio-ingressgateway --namespace istio-system | tail -1 | awk '{print $4}'`
+
 kubectl patch configmap config-domain --namespace knative-serving --patch \
-  '{"data": {"example.com": null, "${EXTERNAL_IP}.xip.io": ""}}'
+  '{"data": {"example.com": null, "[EXTERNAL_IP].xip.io": ""}}'
 ```
 
+## Testing Load
+* For that we will use Locust
+* use the file set-up-locust to set-up 
+* get the ingress IP for locust and use the browser to start a tests
+ 
 
 
