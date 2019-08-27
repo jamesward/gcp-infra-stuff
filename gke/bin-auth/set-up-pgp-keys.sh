@@ -31,6 +31,8 @@ gcloud beta container binauthz attestors public-keys add \
     --attestor=${ATTESTOR} \
     --public-key-file=/tmp/generated-key.pgp
 
+echo "gcloud beta container binauthz attestors list"
+gcloud beta container binauthz attestors list
 
 # Cleanup commands
 #gpg --delete-keys "test-attestor@example.com"
