@@ -12,7 +12,11 @@ gpg --batch --gen-key <(
 EOF
 )
 
+#capture the fingerprint
 export FINGERPRINT=`gpg --list-keys "${ATTESTOR}@example.com" | grep pub -A1 | grep -v pub | tail -1 | awk '{print $1}'`
+
+#export the piblic key
+gpg --armor --export ${FINGERPRINT} > /tmp/generated-key.pgp
 
 # Cleanup commands
 #gpg --delete-keys "test-attestor@example.com"
