@@ -12,4 +12,5 @@ gpg --batch --gen-key <(
 EOF
 )
 
-export FINGERPRINT=`gpg --list-keys "${ATTESTOR}@example.com" | grep pub -A1 | grep -v pub | awk '{print $1}'`
+export FINGERPRINT=`gpg --list-keys "${ATTESTOR}@example.com" | grep pub -A1 | grep -v pub | tail -1 | awk '{print $1}'`
+
