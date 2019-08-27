@@ -15,9 +15,8 @@ EOF
 #capture the fingerprint
 export FINGERPRINT=`gpg --list-keys "${ATTESTOR}@example.com" | grep pub -A1 | grep -v pub | tail -1 | awk '{print $1}'`
 
-#export the piblic key
+#export the public key
 gpg --armor --export ${FINGERPRINT} > /tmp/generated-key.pgp
-
 
 echo "cat /tmp/generated-key.pgp"
 cat /tmp/generated-key.pgp
@@ -39,5 +38,5 @@ gcloud beta container binauthz attestors list
 #gpg --delete-secret-keys "test-attestor@example.com"
 
 #gcloud beta container binauthz attestors list
-#PUBKEY=`gcloud beta container binauthz attestors  describe test-attestor | grep "id:" | tail -1 | awk '{print $2}'``
+#PUBKEY=`gcloud beta container binauthz attestors  describe test-attestor | grep "id:" | tail -1 | awk '{print $2}'`
 #gcloud beta container binauthz attestors public-keys remove $PUBKEY --attestor=test-attestor
