@@ -18,6 +18,20 @@ export FINGERPRINT=`gpg --list-keys "${ATTESTOR}@example.com" | grep pub -A1 | g
 #export the piblic key
 gpg --armor --export ${FINGERPRINT} > /tmp/generated-key.pgp
 
+
+echo "cat /tmp/generated-key.pgp"
+cat /tmp/generated-key.pgp
+
+#Add the PGP public key to the attestor
+echo "gcloud beta container binauthz attestors public-keys add \
+    --attestor=${ATTESTOR} \
+    --public-key-file=/tmp/generated-key.pgp"
+
+gcloud beta container binauthz attestors public-keys add \
+    --attestor=${ATTESTOR} \
+    --public-key-file=/tmp/generated-key.pgp
+
+
 # Cleanup commands
 #gpg --delete-keys "test-attestor@example.com"
 #gpg --delete-secret-keys "test-attestor@example.com"
