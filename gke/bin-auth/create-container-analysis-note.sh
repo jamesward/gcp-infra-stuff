@@ -1,8 +1,6 @@
 #!/bin/bash
 
-# set variables
-ATTESTOR=test-attestor
-NOTE_ID=test-attestor-note
+source variables.sh
 PROJECT_ID=`gcloud config get-value project`
 
 
