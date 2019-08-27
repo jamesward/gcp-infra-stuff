@@ -33,7 +33,7 @@ curl -X POST \
     "https://containeranalysis.googleapis.com/v1beta1/projects/${PROJECT_ID}/notes/?noteId=${NOTE_ID}"
 
 
-# Verify that the node was created
+# Verify that the note was created
 echo "curl \
 -H Authorization: Bearer $(gcloud auth print-access-token) \
 https://containeranalysis.googleapis.com/v1beta1/projects/${PROJECT_ID}/notes/${NOTE_ID}"
