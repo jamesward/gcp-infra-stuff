@@ -1,8 +1,6 @@
 #!/bin/bash
 
 source variables.sh
-PROJECT_ID=`gcloud config get-value project`
-
 
 # Create Container Analisys note
 
