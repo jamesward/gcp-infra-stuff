@@ -35,3 +35,7 @@ gcloud beta container binauthz attestors public-keys add \
 # Cleanup commands
 #gpg --delete-keys "test-attestor@example.com"
 #gpg --delete-secret-keys "test-attestor@example.com"
+
+#gcloud beta container binauthz attestors list
+#PUBKEY=`gcloud beta container binauthz attestors  describe test-attestor | grep "id:" | tail -1 | awk '{print $2}'``
+#gcloud beta container binauthz attestors public-keys remove $PUBKEY --attestor=test-attestor
