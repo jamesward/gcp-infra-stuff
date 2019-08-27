@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #enable the API
+echo "gcloud services enable binaryauthorization.googleapis.com"
 gcloud services enable binaryauthorization.googleapis.com
-
 
 export PROJECT_ID=`gcloud config get-value project`
 if [ "${1}" == "" ] ; then
@@ -14,7 +14,11 @@ fi
 export ZONE=`gcloud container clusters list --format="value(zone)" --filter="name:${CLUSTER}"`
 
 #update the cluster to use Binary Authorization
+echo "gcloud beta container clusters update $CLUSTER \
+--enable-binauthz \
+--zone $ZONE "
+
 gcloud beta container clusters update $CLUSTER \
 --enable-binauthz \
---zone $ZONE \
+--zone $ZONE 
 
