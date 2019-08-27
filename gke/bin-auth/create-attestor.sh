@@ -2,7 +2,6 @@
 
 # set variables
 source variables.sh
-PROJECT_ID=`gcloud config get-value project`
 
 # Create the attestor
 
