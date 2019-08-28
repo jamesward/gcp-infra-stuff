@@ -1,5 +1,3 @@
-export CLUSTER=amiteinav-san
-
 
 export PROJECT_ID=`gcloud config get-value project`
 if [ "${1}" == "" ] ; then
